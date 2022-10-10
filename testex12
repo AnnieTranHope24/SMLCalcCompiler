@@ -1,0 +1,5 @@
+let val base = 1
+in
+	print(base);
+	print(base+1)
+end

@@ -1,0 +1,1903 @@
+18 shift/reduce conflicts
+
+error:  state 2: shift/reduce conflict (shift Store, reduce by rule 8)
+error:  state 4: shift/reduce conflict (shift Div, reduce by rule 3)
+error:  state 4: shift/reduce conflict (shift Times, reduce by rule 3)
+error:  state 21: shift/reduce conflict (shift Semicolon, reduce by rule 27)
+error:  state 22: shift/reduce conflict (shift Semicolon, reduce by rule 28)
+error:  state 24: shift/reduce conflict (shift Semicolon, reduce by rule 24)
+error:  state 24: shift/reduce conflict (shift Minus, reduce by rule 24)
+error:  state 24: shift/reduce conflict (shift Plus, reduce by rule 24)
+error:  state 36: shift/reduce conflict (shift Div, reduce by rule 2)
+error:  state 36: shift/reduce conflict (shift Times, reduce by rule 2)
+error:  state 37: shift/reduce conflict (shift Div, reduce by rule 1)
+error:  state 37: shift/reduce conflict (shift Times, reduce by rule 1)
+error:  state 63: shift/reduce conflict (shift Minus, reduce by rule 30)
+error:  state 63: shift/reduce conflict (shift Plus, reduce by rule 30)
+error:  state 80: shift/reduce conflict (shift Minus, reduce by rule 18)
+error:  state 80: shift/reduce conflict (shift Plus, reduce by rule 18)
+error:  state 81: shift/reduce conflict (shift Minus, reduce by rule 19)
+error:  state 81: shift/reduce conflict (shift Plus, reduce by rule 19)
+
+state 0:
+
+	Prog : . Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Prog	goto 89
+	Expr	goto 5
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 1:
+
+	NegFactor : Factor .  (reduce by rule 10)
+
+	EOF	reduce by rule 10
+	RParen	reduce by rule 10
+	Plus	reduce by rule 10
+	Minus	reduce by rule 10
+	Times	reduce by rule 10
+	Div	reduce by rule 10
+	Store	reduce by rule 10
+	Equal	reduce by rule 10
+	In	reduce by rule 10
+	End	reduce by rule 10
+	RelOp	reduce by rule 10
+	Then	reduce by rule 10
+	Else	reduce by rule 10
+	Semicolon	reduce by rule 10
+	Do	reduce by rule 10
+
+
+	.	error
+
+error:  state 2: shift/reduce conflict (shift Store, reduce by rule 8)
+
+state 2:
+
+	StoreIt : NegFactor . Store 
+	StoreIt : NegFactor .  (reduce by rule 8)
+
+	EOF	reduce by rule 8
+	RParen	reduce by rule 8
+	Plus	reduce by rule 8
+	Minus	reduce by rule 8
+	Times	reduce by rule 8
+	Div	reduce by rule 8
+	Store	shift 16
+	Equal	reduce by rule 8
+	In	reduce by rule 8
+	End	reduce by rule 8
+	RelOp	reduce by rule 8
+	Then	reduce by rule 8
+	Else	reduce by rule 8
+	Semicolon	reduce by rule 8
+	Do	reduce by rule 8
+
+
+	.	error
+
+
+state 3:
+
+	Term : StoreIt .  (reduce by rule 6)
+
+	EOF	reduce by rule 6
+	RParen	reduce by rule 6
+	Plus	reduce by rule 6
+	Minus	reduce by rule 6
+	Times	reduce by rule 6
+	Div	reduce by rule 6
+	Store	reduce by rule 6
+	Equal	reduce by rule 6
+	In	reduce by rule 6
+	End	reduce by rule 6
+	RelOp	reduce by rule 6
+	Then	reduce by rule 6
+	Else	reduce by rule 6
+	Semicolon	reduce by rule 6
+	Do	reduce by rule 6
+
+
+	.	error
+
+error:  state 4: shift/reduce conflict (shift Div, reduce by rule 3)
+error:  state 4: shift/reduce conflict (shift Times, reduce by rule 3)
+
+state 4:
+
+	Expr : Term .  (reduce by rule 3)
+	Term : Term . Times StoreIt 
+	Term : Term . Div StoreIt 
+
+	EOF	reduce by rule 3
+	RParen	reduce by rule 3
+	Plus	reduce by rule 3
+	Minus	reduce by rule 3
+	Times	shift 18
+	Div	shift 17
+	Store	reduce by rule 3
+	Equal	reduce by rule 3
+	In	reduce by rule 3
+	End	reduce by rule 3
+	RelOp	reduce by rule 3
+	Then	reduce by rule 3
+	Else	reduce by rule 3
+	Semicolon	reduce by rule 3
+	Do	reduce by rule 3
+
+
+	.	error
+
+
+state 5:
+
+	Prog : Expr .  (reduce by rule 0)
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+
+	EOF	reduce by rule 0
+	Plus	shift 20
+	Minus	shift 19
+
+
+	.	error
+
+
+state 6:
+
+	Factor : While . ExprSeq RelOp ExprSeq Do ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 23
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 7:
+
+	Factor : Print . LParen ExprSeq RParen 
+
+	LParen	shift 27
+
+
+	.	error
+
+
+state 8:
+
+	Factor : If . Expr RelOp Expr Then Expr Else Expr 
+	Factor : If . Expr Equal Expr Then Expr Else Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 28
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 9:
+
+	Factor : ID .  (reduce by rule 15)
+	Factor : ID . LParen Expr RParen 
+
+	EOF	reduce by rule 15
+	LParen	shift 29
+	RParen	reduce by rule 15
+	Plus	reduce by rule 15
+	Minus	reduce by rule 15
+	Times	reduce by rule 15
+	Div	reduce by rule 15
+	Store	reduce by rule 15
+	Equal	reduce by rule 15
+	In	reduce by rule 15
+	End	reduce by rule 15
+	RelOp	reduce by rule 15
+	Then	reduce by rule 15
+	Else	reduce by rule 15
+	Semicolon	reduce by rule 15
+	Do	reduce by rule 15
+
+
+	.	error
+
+
+state 10:
+
+	Factor : Get .  (reduce by rule 14)
+
+	EOF	reduce by rule 14
+	RParen	reduce by rule 14
+	Plus	reduce by rule 14
+	Minus	reduce by rule 14
+	Times	reduce by rule 14
+	Div	reduce by rule 14
+	Store	reduce by rule 14
+	Equal	reduce by rule 14
+	In	reduce by rule 14
+	End	reduce by rule 14
+	RelOp	reduce by rule 14
+	Then	reduce by rule 14
+	Else	reduce by rule 14
+	Semicolon	reduce by rule 14
+	Do	reduce by rule 14
+
+
+	.	error
+
+
+state 11:
+
+	Factor : Let . Val ID Equal ExprSeq In ExprSeq End 
+	Factor : Let . Val ID Equal Ref ExprSeq In ExprSeq End 
+	Factor : Let . Fun ID LParen ID RParen Equal Expr In Expr End 
+
+	Val	shift 31
+	Fun	shift 30
+
+
+	.	error
+
+
+state 12:
+
+	Factor : Int .  (reduce by rule 11)
+
+	EOF	reduce by rule 11
+	RParen	reduce by rule 11
+	Plus	reduce by rule 11
+	Minus	reduce by rule 11
+	Times	reduce by rule 11
+	Div	reduce by rule 11
+	Store	reduce by rule 11
+	Equal	reduce by rule 11
+	In	reduce by rule 11
+	End	reduce by rule 11
+	RelOp	reduce by rule 11
+	Then	reduce by rule 11
+	Else	reduce by rule 11
+	Semicolon	reduce by rule 11
+	Do	reduce by rule 11
+
+
+	.	error
+
+
+state 13:
+
+	Factor : Recall .  (reduce by rule 13)
+
+	EOF	reduce by rule 13
+	RParen	reduce by rule 13
+	Plus	reduce by rule 13
+	Minus	reduce by rule 13
+	Times	reduce by rule 13
+	Div	reduce by rule 13
+	Store	reduce by rule 13
+	Equal	reduce by rule 13
+	In	reduce by rule 13
+	End	reduce by rule 13
+	RelOp	reduce by rule 13
+	Then	reduce by rule 13
+	Else	reduce by rule 13
+	Semicolon	reduce by rule 13
+	Do	reduce by rule 13
+
+
+	.	error
+
+
+state 14:
+
+	NegFactor : Minus . NegFactor 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	NegFactor	goto 32
+	Factor	goto 1
+
+	.	error
+
+
+state 15:
+
+	Factor : LParen . ExprSeq RParen 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 33
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 16:
+
+	StoreIt : NegFactor Store .  (reduce by rule 7)
+
+	EOF	reduce by rule 7
+	RParen	reduce by rule 7
+	Plus	reduce by rule 7
+	Minus	reduce by rule 7
+	Times	reduce by rule 7
+	Div	reduce by rule 7
+	Store	reduce by rule 7
+	Equal	reduce by rule 7
+	In	reduce by rule 7
+	End	reduce by rule 7
+	RelOp	reduce by rule 7
+	Then	reduce by rule 7
+	Else	reduce by rule 7
+	Semicolon	reduce by rule 7
+	Do	reduce by rule 7
+
+
+	.	error
+
+
+state 17:
+
+	Term : Term Div . StoreIt 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	StoreIt	goto 34
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 18:
+
+	Term : Term Times . StoreIt 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	StoreIt	goto 35
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 19:
+
+	Expr : Expr Minus . Term 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Term	goto 36
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 20:
+
+	Expr : Expr Plus . Term 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Term	goto 37
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+error:  state 21: shift/reduce conflict (shift Semicolon, reduce by rule 27)
+
+state 21:
+
+	ExprSeq : DefExpr .  (reduce by rule 27)
+	ExprSeq : DefExpr . Semicolon ExprSeq 
+
+	EOF	reduce by rule 27
+	RParen	reduce by rule 27
+	Plus	reduce by rule 27
+	Minus	reduce by rule 27
+	Times	reduce by rule 27
+	Div	reduce by rule 27
+	Store	reduce by rule 27
+	Equal	reduce by rule 27
+	In	reduce by rule 27
+	End	reduce by rule 27
+	RelOp	reduce by rule 27
+	Then	reduce by rule 27
+	Else	reduce by rule 27
+	Semicolon	shift 38
+	Do	reduce by rule 27
+
+
+	.	error
+
+error:  state 22: shift/reduce conflict (shift Semicolon, reduce by rule 28)
+
+state 22:
+
+	ExprSeq : RefExpr . Semicolon ExprSeq 
+	ExprSeq : RefExpr .  (reduce by rule 28)
+
+	EOF	reduce by rule 28
+	RParen	reduce by rule 28
+	Plus	reduce by rule 28
+	Minus	reduce by rule 28
+	Times	reduce by rule 28
+	Div	reduce by rule 28
+	Store	reduce by rule 28
+	Equal	reduce by rule 28
+	In	reduce by rule 28
+	End	reduce by rule 28
+	RelOp	reduce by rule 28
+	Then	reduce by rule 28
+	Else	reduce by rule 28
+	Semicolon	shift 39
+	Do	reduce by rule 28
+
+
+	.	error
+
+
+state 23:
+
+	Factor : While ExprSeq . RelOp ExprSeq Do ExprSeq 
+
+	RelOp	shift 40
+
+
+	.	error
+
+error:  state 24: shift/reduce conflict (shift Semicolon, reduce by rule 24)
+error:  state 24: shift/reduce conflict (shift Minus, reduce by rule 24)
+error:  state 24: shift/reduce conflict (shift Plus, reduce by rule 24)
+
+state 24:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	ExprSeq : Expr .  (reduce by rule 24)
+	ExprSeq : Expr . Semicolon ExprSeq 
+
+	EOF	reduce by rule 24
+	RParen	reduce by rule 24
+	Plus	shift 20
+	Minus	shift 19
+	Times	reduce by rule 24
+	Div	reduce by rule 24
+	Store	reduce by rule 24
+	Equal	reduce by rule 24
+	In	reduce by rule 24
+	End	reduce by rule 24
+	RelOp	reduce by rule 24
+	Then	reduce by rule 24
+	Else	reduce by rule 24
+	Semicolon	shift 41
+	Do	reduce by rule 24
+
+
+	.	error
+
+
+state 25:
+
+	DefExpr : Exclam . ID 
+
+	ID	shift 42
+
+
+	.	error
+
+
+state 26:
+
+	Factor : ID .  (reduce by rule 15)
+	Factor : ID . LParen Expr RParen 
+	RefExpr : ID . Colon Equal Expr 
+
+	EOF	reduce by rule 15
+	LParen	shift 29
+	RParen	reduce by rule 15
+	Plus	reduce by rule 15
+	Minus	reduce by rule 15
+	Times	reduce by rule 15
+	Div	reduce by rule 15
+	Store	reduce by rule 15
+	Equal	reduce by rule 15
+	In	reduce by rule 15
+	End	reduce by rule 15
+	RelOp	reduce by rule 15
+	Then	reduce by rule 15
+	Else	reduce by rule 15
+	Semicolon	reduce by rule 15
+	Colon	shift 43
+	Do	reduce by rule 15
+
+
+	.	error
+
+
+state 27:
+
+	Factor : Print LParen . ExprSeq RParen 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 44
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 28:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr . RelOp Expr Then Expr Else Expr 
+	Factor : If Expr . Equal Expr Then Expr Else Expr 
+
+	Plus	shift 20
+	Minus	shift 19
+	Equal	shift 46
+	RelOp	shift 45
+
+
+	.	error
+
+
+state 29:
+
+	Factor : ID LParen . Expr RParen 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 47
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 30:
+
+	Factor : Let Fun . ID LParen ID RParen Equal Expr In Expr End 
+
+	ID	shift 48
+
+
+	.	error
+
+
+state 31:
+
+	Factor : Let Val . ID Equal ExprSeq In ExprSeq End 
+	Factor : Let Val . ID Equal Ref ExprSeq In ExprSeq End 
+
+	ID	shift 49
+
+
+	.	error
+
+
+state 32:
+
+	NegFactor : Minus NegFactor .  (reduce by rule 9)
+
+	EOF	reduce by rule 9
+	RParen	reduce by rule 9
+	Plus	reduce by rule 9
+	Minus	reduce by rule 9
+	Times	reduce by rule 9
+	Div	reduce by rule 9
+	Store	reduce by rule 9
+	Equal	reduce by rule 9
+	In	reduce by rule 9
+	End	reduce by rule 9
+	RelOp	reduce by rule 9
+	Then	reduce by rule 9
+	Else	reduce by rule 9
+	Semicolon	reduce by rule 9
+	Do	reduce by rule 9
+
+
+	.	error
+
+
+state 33:
+
+	Factor : LParen ExprSeq . RParen 
+
+	RParen	shift 50
+
+
+	.	error
+
+
+state 34:
+
+	Term : Term Div StoreIt .  (reduce by rule 5)
+
+	EOF	reduce by rule 5
+	RParen	reduce by rule 5
+	Plus	reduce by rule 5
+	Minus	reduce by rule 5
+	Times	reduce by rule 5
+	Div	reduce by rule 5
+	Store	reduce by rule 5
+	Equal	reduce by rule 5
+	In	reduce by rule 5
+	End	reduce by rule 5
+	RelOp	reduce by rule 5
+	Then	reduce by rule 5
+	Else	reduce by rule 5
+	Semicolon	reduce by rule 5
+	Do	reduce by rule 5
+
+
+	.	error
+
+
+state 35:
+
+	Term : Term Times StoreIt .  (reduce by rule 4)
+
+	EOF	reduce by rule 4
+	RParen	reduce by rule 4
+	Plus	reduce by rule 4
+	Minus	reduce by rule 4
+	Times	reduce by rule 4
+	Div	reduce by rule 4
+	Store	reduce by rule 4
+	Equal	reduce by rule 4
+	In	reduce by rule 4
+	End	reduce by rule 4
+	RelOp	reduce by rule 4
+	Then	reduce by rule 4
+	Else	reduce by rule 4
+	Semicolon	reduce by rule 4
+	Do	reduce by rule 4
+
+
+	.	error
+
+error:  state 36: shift/reduce conflict (shift Div, reduce by rule 2)
+error:  state 36: shift/reduce conflict (shift Times, reduce by rule 2)
+
+state 36:
+
+	Expr : Expr Minus Term .  (reduce by rule 2)
+	Term : Term . Times StoreIt 
+	Term : Term . Div StoreIt 
+
+	EOF	reduce by rule 2
+	RParen	reduce by rule 2
+	Plus	reduce by rule 2
+	Minus	reduce by rule 2
+	Times	shift 18
+	Div	shift 17
+	Store	reduce by rule 2
+	Equal	reduce by rule 2
+	In	reduce by rule 2
+	End	reduce by rule 2
+	RelOp	reduce by rule 2
+	Then	reduce by rule 2
+	Else	reduce by rule 2
+	Semicolon	reduce by rule 2
+	Do	reduce by rule 2
+
+
+	.	error
+
+error:  state 37: shift/reduce conflict (shift Div, reduce by rule 1)
+error:  state 37: shift/reduce conflict (shift Times, reduce by rule 1)
+
+state 37:
+
+	Expr : Expr Plus Term .  (reduce by rule 1)
+	Term : Term . Times StoreIt 
+	Term : Term . Div StoreIt 
+
+	EOF	reduce by rule 1
+	RParen	reduce by rule 1
+	Plus	reduce by rule 1
+	Minus	reduce by rule 1
+	Times	shift 18
+	Div	shift 17
+	Store	reduce by rule 1
+	Equal	reduce by rule 1
+	In	reduce by rule 1
+	End	reduce by rule 1
+	RelOp	reduce by rule 1
+	Then	reduce by rule 1
+	Else	reduce by rule 1
+	Semicolon	reduce by rule 1
+	Do	reduce by rule 1
+
+
+	.	error
+
+
+state 38:
+
+	ExprSeq : DefExpr Semicolon . ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 51
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 39:
+
+	ExprSeq : RefExpr Semicolon . ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 52
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 40:
+
+	Factor : While ExprSeq RelOp . ExprSeq Do ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 53
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 41:
+
+	ExprSeq : Expr Semicolon . ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 54
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 42:
+
+	DefExpr : Exclam ID .  (reduce by rule 31)
+
+	EOF	reduce by rule 31
+	RParen	reduce by rule 31
+	Plus	reduce by rule 31
+	Minus	reduce by rule 31
+	Times	reduce by rule 31
+	Div	reduce by rule 31
+	Store	reduce by rule 31
+	Equal	reduce by rule 31
+	In	reduce by rule 31
+	End	reduce by rule 31
+	RelOp	reduce by rule 31
+	Then	reduce by rule 31
+	Else	reduce by rule 31
+	Semicolon	reduce by rule 31
+	Do	reduce by rule 31
+
+
+	.	error
+
+
+state 43:
+
+	RefExpr : ID Colon . Equal Expr 
+
+	Equal	shift 55
+
+
+	.	error
+
+
+state 44:
+
+	Factor : Print LParen ExprSeq . RParen 
+
+	RParen	shift 56
+
+
+	.	error
+
+
+state 45:
+
+	Factor : If Expr RelOp . Expr Then Expr Else Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 57
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 46:
+
+	Factor : If Expr Equal . Expr Then Expr Else Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 58
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 47:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : ID LParen Expr . RParen 
+
+	RParen	shift 59
+	Plus	shift 20
+	Minus	shift 19
+
+
+	.	error
+
+
+state 48:
+
+	Factor : Let Fun ID . LParen ID RParen Equal Expr In Expr End 
+
+	LParen	shift 60
+
+
+	.	error
+
+
+state 49:
+
+	Factor : Let Val ID . Equal ExprSeq In ExprSeq End 
+	Factor : Let Val ID . Equal Ref ExprSeq In ExprSeq End 
+
+	Equal	shift 61
+
+
+	.	error
+
+
+state 50:
+
+	Factor : LParen ExprSeq RParen .  (reduce by rule 12)
+
+	EOF	reduce by rule 12
+	RParen	reduce by rule 12
+	Plus	reduce by rule 12
+	Minus	reduce by rule 12
+	Times	reduce by rule 12
+	Div	reduce by rule 12
+	Store	reduce by rule 12
+	Equal	reduce by rule 12
+	In	reduce by rule 12
+	End	reduce by rule 12
+	RelOp	reduce by rule 12
+	Then	reduce by rule 12
+	Else	reduce by rule 12
+	Semicolon	reduce by rule 12
+	Do	reduce by rule 12
+
+
+	.	error
+
+
+state 51:
+
+	ExprSeq : DefExpr Semicolon ExprSeq .  (reduce by rule 29)
+
+	EOF	reduce by rule 29
+	RParen	reduce by rule 29
+	Plus	reduce by rule 29
+	Minus	reduce by rule 29
+	Times	reduce by rule 29
+	Div	reduce by rule 29
+	Store	reduce by rule 29
+	Equal	reduce by rule 29
+	In	reduce by rule 29
+	End	reduce by rule 29
+	RelOp	reduce by rule 29
+	Then	reduce by rule 29
+	Else	reduce by rule 29
+	Semicolon	reduce by rule 29
+	Do	reduce by rule 29
+
+
+	.	error
+
+
+state 52:
+
+	ExprSeq : RefExpr Semicolon ExprSeq .  (reduce by rule 26)
+
+	EOF	reduce by rule 26
+	RParen	reduce by rule 26
+	Plus	reduce by rule 26
+	Minus	reduce by rule 26
+	Times	reduce by rule 26
+	Div	reduce by rule 26
+	Store	reduce by rule 26
+	Equal	reduce by rule 26
+	In	reduce by rule 26
+	End	reduce by rule 26
+	RelOp	reduce by rule 26
+	Then	reduce by rule 26
+	Else	reduce by rule 26
+	Semicolon	reduce by rule 26
+	Do	reduce by rule 26
+
+
+	.	error
+
+
+state 53:
+
+	Factor : While ExprSeq RelOp ExprSeq . Do ExprSeq 
+
+	Do	shift 62
+
+
+	.	error
+
+
+state 54:
+
+	ExprSeq : Expr Semicolon ExprSeq .  (reduce by rule 25)
+
+	EOF	reduce by rule 25
+	RParen	reduce by rule 25
+	Plus	reduce by rule 25
+	Minus	reduce by rule 25
+	Times	reduce by rule 25
+	Div	reduce by rule 25
+	Store	reduce by rule 25
+	Equal	reduce by rule 25
+	In	reduce by rule 25
+	End	reduce by rule 25
+	RelOp	reduce by rule 25
+	Then	reduce by rule 25
+	Else	reduce by rule 25
+	Semicolon	reduce by rule 25
+	Do	reduce by rule 25
+
+
+	.	error
+
+
+state 55:
+
+	RefExpr : ID Colon Equal . Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 63
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 56:
+
+	Factor : Print LParen ExprSeq RParen .  (reduce by rule 22)
+
+	EOF	reduce by rule 22
+	RParen	reduce by rule 22
+	Plus	reduce by rule 22
+	Minus	reduce by rule 22
+	Times	reduce by rule 22
+	Div	reduce by rule 22
+	Store	reduce by rule 22
+	Equal	reduce by rule 22
+	In	reduce by rule 22
+	End	reduce by rule 22
+	RelOp	reduce by rule 22
+	Then	reduce by rule 22
+	Else	reduce by rule 22
+	Semicolon	reduce by rule 22
+	Do	reduce by rule 22
+
+
+	.	error
+
+
+state 57:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr RelOp Expr . Then Expr Else Expr 
+
+	Plus	shift 20
+	Minus	shift 19
+	Then	shift 64
+
+
+	.	error
+
+
+state 58:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr Equal Expr . Then Expr Else Expr 
+
+	Plus	shift 20
+	Minus	shift 19
+	Then	shift 65
+
+
+	.	error
+
+
+state 59:
+
+	Factor : ID LParen Expr RParen .  (reduce by rule 20)
+
+	EOF	reduce by rule 20
+	RParen	reduce by rule 20
+	Plus	reduce by rule 20
+	Minus	reduce by rule 20
+	Times	reduce by rule 20
+	Div	reduce by rule 20
+	Store	reduce by rule 20
+	Equal	reduce by rule 20
+	In	reduce by rule 20
+	End	reduce by rule 20
+	RelOp	reduce by rule 20
+	Then	reduce by rule 20
+	Else	reduce by rule 20
+	Semicolon	reduce by rule 20
+	Do	reduce by rule 20
+
+
+	.	error
+
+
+state 60:
+
+	Factor : Let Fun ID LParen . ID RParen Equal Expr In Expr End 
+
+	ID	shift 66
+
+
+	.	error
+
+
+state 61:
+
+	Factor : Let Val ID Equal . ExprSeq In ExprSeq End 
+	Factor : Let Val ID Equal . Ref ExprSeq In ExprSeq End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	Ref	shift 68
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 67
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 62:
+
+	Factor : While ExprSeq RelOp ExprSeq Do . ExprSeq 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 69
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+error:  state 63: shift/reduce conflict (shift Minus, reduce by rule 30)
+error:  state 63: shift/reduce conflict (shift Plus, reduce by rule 30)
+
+state 63:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	RefExpr : ID Colon Equal Expr .  (reduce by rule 30)
+
+	EOF	reduce by rule 30
+	RParen	reduce by rule 30
+	Plus	shift 20
+	Minus	shift 19
+	Times	reduce by rule 30
+	Div	reduce by rule 30
+	Store	reduce by rule 30
+	Equal	reduce by rule 30
+	In	reduce by rule 30
+	End	reduce by rule 30
+	RelOp	reduce by rule 30
+	Then	reduce by rule 30
+	Else	reduce by rule 30
+	Semicolon	reduce by rule 30
+	Do	reduce by rule 30
+
+
+	.	error
+
+
+state 64:
+
+	Factor : If Expr RelOp Expr Then . Expr Else Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 70
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 65:
+
+	Factor : If Expr Equal Expr Then . Expr Else Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 71
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 66:
+
+	Factor : Let Fun ID LParen ID . RParen Equal Expr In Expr End 
+
+	RParen	shift 72
+
+
+	.	error
+
+
+state 67:
+
+	Factor : Let Val ID Equal ExprSeq . In ExprSeq End 
+
+	In	shift 73
+
+
+	.	error
+
+
+state 68:
+
+	Factor : Let Val ID Equal Ref . ExprSeq In ExprSeq End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 74
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 69:
+
+	Factor : While ExprSeq RelOp ExprSeq Do ExprSeq .  (reduce by rule 23)
+
+	EOF	reduce by rule 23
+	RParen	reduce by rule 23
+	Plus	reduce by rule 23
+	Minus	reduce by rule 23
+	Times	reduce by rule 23
+	Div	reduce by rule 23
+	Store	reduce by rule 23
+	Equal	reduce by rule 23
+	In	reduce by rule 23
+	End	reduce by rule 23
+	RelOp	reduce by rule 23
+	Then	reduce by rule 23
+	Else	reduce by rule 23
+	Semicolon	reduce by rule 23
+	Do	reduce by rule 23
+
+
+	.	error
+
+
+state 70:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr RelOp Expr Then Expr . Else Expr 
+
+	Plus	shift 20
+	Minus	shift 19
+	Else	shift 75
+
+
+	.	error
+
+
+state 71:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr Equal Expr Then Expr . Else Expr 
+
+	Plus	shift 20
+	Minus	shift 19
+	Else	shift 76
+
+
+	.	error
+
+
+state 72:
+
+	Factor : Let Fun ID LParen ID RParen . Equal Expr In Expr End 
+
+	Equal	shift 77
+
+
+	.	error
+
+
+state 73:
+
+	Factor : Let Val ID Equal ExprSeq In . ExprSeq End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 78
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+
+state 74:
+
+	Factor : Let Val ID Equal Ref ExprSeq . In ExprSeq End 
+
+	In	shift 79
+
+
+	.	error
+
+
+state 75:
+
+	Factor : If Expr RelOp Expr Then Expr Else . Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 80
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 76:
+
+	Factor : If Expr Equal Expr Then Expr Else . Expr 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 81
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 77:
+
+	Factor : Let Fun ID LParen ID RParen Equal . Expr In Expr End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 82
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 78:
+
+	Factor : Let Val ID Equal ExprSeq In ExprSeq . End 
+
+	End	shift 83
+
+
+	.	error
+
+
+state 79:
+
+	Factor : Let Val ID Equal Ref ExprSeq In . ExprSeq End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 26
+	If	shift 8
+	Print	shift 7
+	Exclam	shift 25
+	While	shift 6
+
+	Expr	goto 24
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+	ExprSeq	goto 84
+	RefExpr	goto 22
+	DefExpr	goto 21
+
+	.	error
+
+error:  state 80: shift/reduce conflict (shift Minus, reduce by rule 18)
+error:  state 80: shift/reduce conflict (shift Plus, reduce by rule 18)
+
+state 80:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr RelOp Expr Then Expr Else Expr .  (reduce by rule 18)
+
+	EOF	reduce by rule 18
+	RParen	reduce by rule 18
+	Plus	shift 20
+	Minus	shift 19
+	Times	reduce by rule 18
+	Div	reduce by rule 18
+	Store	reduce by rule 18
+	Equal	reduce by rule 18
+	In	reduce by rule 18
+	End	reduce by rule 18
+	RelOp	reduce by rule 18
+	Then	reduce by rule 18
+	Else	reduce by rule 18
+	Semicolon	reduce by rule 18
+	Do	reduce by rule 18
+
+
+	.	error
+
+error:  state 81: shift/reduce conflict (shift Minus, reduce by rule 19)
+error:  state 81: shift/reduce conflict (shift Plus, reduce by rule 19)
+
+state 81:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : If Expr Equal Expr Then Expr Else Expr .  (reduce by rule 19)
+
+	EOF	reduce by rule 19
+	RParen	reduce by rule 19
+	Plus	shift 20
+	Minus	shift 19
+	Times	reduce by rule 19
+	Div	reduce by rule 19
+	Store	reduce by rule 19
+	Equal	reduce by rule 19
+	In	reduce by rule 19
+	End	reduce by rule 19
+	RelOp	reduce by rule 19
+	Then	reduce by rule 19
+	Else	reduce by rule 19
+	Semicolon	reduce by rule 19
+	Do	reduce by rule 19
+
+
+	.	error
+
+
+state 82:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : Let Fun ID LParen ID RParen Equal Expr . In Expr End 
+
+	Plus	shift 20
+	Minus	shift 19
+	In	shift 85
+
+
+	.	error
+
+
+state 83:
+
+	Factor : Let Val ID Equal ExprSeq In ExprSeq End .  (reduce by rule 16)
+
+	EOF	reduce by rule 16
+	RParen	reduce by rule 16
+	Plus	reduce by rule 16
+	Minus	reduce by rule 16
+	Times	reduce by rule 16
+	Div	reduce by rule 16
+	Store	reduce by rule 16
+	Equal	reduce by rule 16
+	In	reduce by rule 16
+	End	reduce by rule 16
+	RelOp	reduce by rule 16
+	Then	reduce by rule 16
+	Else	reduce by rule 16
+	Semicolon	reduce by rule 16
+	Do	reduce by rule 16
+
+
+	.	error
+
+
+state 84:
+
+	Factor : Let Val ID Equal Ref ExprSeq In ExprSeq . End 
+
+	End	shift 86
+
+
+	.	error
+
+
+state 85:
+
+	Factor : Let Fun ID LParen ID RParen Equal Expr In . Expr End 
+
+	LParen	shift 15
+	Minus	shift 14
+	Recall	shift 13
+	Int	shift 12
+	Let	shift 11
+	Get	shift 10
+	ID	shift 9
+	If	shift 8
+	Print	shift 7
+	While	shift 6
+
+	Expr	goto 87
+	Term	goto 4
+	StoreIt	goto 3
+	NegFactor	goto 2
+	Factor	goto 1
+
+	.	error
+
+
+state 86:
+
+	Factor : Let Val ID Equal Ref ExprSeq In ExprSeq End .  (reduce by rule 17)
+
+	EOF	reduce by rule 17
+	RParen	reduce by rule 17
+	Plus	reduce by rule 17
+	Minus	reduce by rule 17
+	Times	reduce by rule 17
+	Div	reduce by rule 17
+	Store	reduce by rule 17
+	Equal	reduce by rule 17
+	In	reduce by rule 17
+	End	reduce by rule 17
+	RelOp	reduce by rule 17
+	Then	reduce by rule 17
+	Else	reduce by rule 17
+	Semicolon	reduce by rule 17
+	Do	reduce by rule 17
+
+
+	.	error
+
+
+state 87:
+
+	Expr : Expr . Plus Term 
+	Expr : Expr . Minus Term 
+	Factor : Let Fun ID LParen ID RParen Equal Expr In Expr . End 
+
+	Plus	shift 20
+	Minus	shift 19
+	End	shift 88
+
+
+	.	error
+
+
+state 88:
+
+	Factor : Let Fun ID LParen ID RParen Equal Expr In Expr End .  (reduce by rule 21)
+
+	EOF	reduce by rule 21
+	RParen	reduce by rule 21
+	Plus	reduce by rule 21
+	Minus	reduce by rule 21
+	Times	reduce by rule 21
+	Div	reduce by rule 21
+	Store	reduce by rule 21
+	Equal	reduce by rule 21
+	In	reduce by rule 21
+	End	reduce by rule 21
+	RelOp	reduce by rule 21
+	Then	reduce by rule 21
+	Else	reduce by rule 21
+	Semicolon	reduce by rule 21
+	Do	reduce by rule 21
+
+
+	.	error
+
+
+state 89:
+
+
+	EOF	accept
+
+
+	.	error
+
+565 of 925 action table entries left after compaction
+173 goto table entries

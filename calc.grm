@@ -1,0 +1,96 @@
+(* calc.grm - parser spec *)
+
+open calcAS;
+
+%%
+%name calc (* calc becomes a prefix in functions *)
+%verbose
+%eop EOF
+%pos int
+%nodefault
+%pure (* no side-effects in actions *)
+
+%term EOF
+    | LParen
+    | RParen
+    | Plus
+    | Minus
+    | Times
+    | Div
+    | Store
+    | Recall
+    | Int of int
+	| Let
+	| Val
+	| Equal
+	| In
+	| End
+	| Get
+	| ID of string
+	| RelOp of string
+	| If
+	| Then
+	| Else
+	| Fun
+	| Semicolon
+	| Print
+	| Exclam
+	| Colon
+	| Ref
+	| While
+	| Do
+
+%nonterm Prog of AST
+       | Expr of AST
+       | Term of AST
+       | StoreIt of AST
+       | NegFactor of AST
+       | Factor of AST
+	   | ExprSeq of AST
+	   | RefExpr of AST
+	   | DefExpr of AST
+
+
+%%
+
+Prog : Expr                               (Expr)
+
+Expr : Expr Plus Term                     (add'(Expr,Term))
+     | Expr Minus Term                    (sub'(Expr,Term))
+     | Term                               (Term)
+
+Term : Term Times StoreIt                 (prod'(Term,StoreIt))
+     | Term Div StoreIt                   (div'(Term,StoreIt))
+     | StoreIt                            (StoreIt)
+
+StoreIt : NegFactor Store                 (store'(NegFactor))
+        | NegFactor                       (NegFactor)
+
+NegFactor : Minus NegFactor               (negate'(NegFactor))
+          | Factor                        (Factor)
+                        
+Factor : Int                              (integer'(Int)) (*grap from factor*)
+       | LParen ExprSeq RParen               (ExprSeq)           (*AST nodes*)
+       | Recall                           (recall')
+	   | Get								(get')
+	   | ID 							  (valref'(ID)) 
+	   | Let Val ID Equal ExprSeq In ExprSeq End(letval'(ID, ExprSeq1,ExprSeq2))
+	   | Let Val ID Equal Ref ExprSeq In ExprSeq End(*changes*) (letref'(ID, ExprSeq1, ExprSeq2))
+	   | If Expr RelOp Expr Then Expr Else Expr   (ifthenelse'(RelOp, Expr1, Expr2, Expr3, Expr4))
+	   | If Expr Equal Expr Then Expr Else Expr   (ifthenelse'("=", Expr1, Expr2, Expr3, Expr4))	   
+	   | ID LParen Expr RParen 								(funref'(ID, Expr))
+	   | Let Fun ID LParen ID RParen Equal Expr In Expr End (letfun'(ID1, ID2, Expr1, Expr2)) 
+	   | Print LParen ExprSeq RParen						(print'(ExprSeq))
+	   | While ExprSeq RelOp ExprSeq Do ExprSeq					(while'(RelOp, ExprSeq1, ExprSeq2, ExprSeq3))
+
+ExprSeq : Expr 								(Expr)
+		| Expr Semicolon ExprSeq 			(seq'(Expr,ExprSeq))
+		| RefExpr Semicolon ExprSeq 		(seq'(RefExpr,ExprSeq))
+		| DefExpr           				(DefExpr)
+		| RefExpr							(RefExpr)
+		| DefExpr Semicolon ExprSeq 		(seq'(DefExpr,ExprSeq))		
+RefExpr : ID Colon Equal Expr               (ref'(ID, Expr))
+DefExpr : Exclam ID							(def'(ID))
+
+
+
